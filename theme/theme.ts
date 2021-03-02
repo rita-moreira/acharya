@@ -7,7 +7,7 @@ export const tertiaryColor = "#C3DED7";
 export const light = createMuiTheme({
   palette: {
     primary: {
-      main: '#81C4B2'
+      main: primaryColor
     },
     secondary: {
       main: "#FFFFFF"
@@ -53,7 +53,7 @@ export const light = createMuiTheme({
 export const dark = createMuiTheme({
   palette: {
     primary: {
-      main: '#81C4B2'
+      main: tertiaryColor
     },
     secondary: {
       main: "#FFFFFF"
@@ -121,7 +121,40 @@ export const useStyles = makeStyles((theme: Theme) =>
     pageBackground: {
       backgroundColor: theme.palette.background.default,
       minHeight: "100vh",
-    }
+    },
+    positiveButton: {
+      fontSize: 16,
+      padding: "10px 60px",
+      borderRadius: "25px",
+      backgroundColor: secondaryColor,
+      textAlign: "center",
+      width: "fit-content",
+      fontFamily: "Roboto",
+      color: "#000000",
+      textTransform: "none",
+      boxShadow: "0px 3px 8px grey",
+      "&:hover": {
+        backgroundColor: primaryColor,
+        color: "#FFFFFF",
+      },
+    },
+    negativeButton: {
+      fontSize: 14,
+      padding: "10px 15px",
+      borderRadius: "25px",
+      backgroundColor: "#FFFFFF",
+      textAlign: "center",
+      width: "fit-content",
+      fontFamily: "Roboto",
+      color: "black",
+      textTransform: "none",
+      boxShadow: "0px 3px 8px grey",
+      "&:hover": {
+        backgroundColor: "#EFEFEF",
+        color: "black",
+      },
+
+    },
     
   })
 );

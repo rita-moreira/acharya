@@ -1,16 +1,15 @@
-import React from 'react';
+import React from 'react'
 import { useForm } from "react-hook-form";
 
-import { Button, createStyles, Grid, Link, makeStyles, Theme, Typography } from '@material-ui/core';
+import { Button, createStyles, FormControl, Grid, IconButton, Input, InputAdornment, InputBase, InputLabel, Link, makeStyles, OutlinedInput, Paper, TextField, Theme, Typography } from '@material-ui/core'
 
 // components
 import InputField from "./InputField";
-import AlertMessage from "./AlertMessage"
 
 import { useStyles } from '../../theme/theme';
 
-// interface
-import { LoginDataProps } from "../../interfaces/index"
+import { RegisterDataProps } from '../../interfaces';
+import AlertMessage from './AlertMessage';
 
 const useStylesPage = makeStyles((theme: Theme) =>
     createStyles({
@@ -22,7 +21,7 @@ const useStylesPage = makeStyles((theme: Theme) =>
             textAlign: "center"
         },
         link: {
-            marginTop: "15px",
+            marginTop: "10px",
             textAlign: "right",
             marginRight: "10px",
         },
@@ -35,38 +34,39 @@ const useStylesPage = makeStyles((theme: Theme) =>
     }),
 );
 
-const LoginForm: React.FC = () => {
+const RegisterForm: React.FC = () => {
     const classes = useStylesPage();
     const classesGlobal = useStyles();
 
     const { handleSubmit, register, errors } = useForm();
 
-    const onSubmit = (data: LoginDataProps) => {
+    const onSubmit = (data: RegisterDataProps) => {
         alert(JSON.stringify(data))
     }
 
     return (
+
         <Grid container className={classes.root} alignContent="center" alignItems="center" justify="center">
             <Grid item xs={12} >
-                <Typography color="primary" variant="h1">Iniciar Sessão</Typography>
+                <Typography color="primary" variant="h1">Registar</Typography>
             </Grid>
             <form autoComplete="off" noValidate onSubmit={handleSubmit(onSubmit)}>
                 <Grid container className={classes.root} alignContent="center" alignItems="center" justify="center">
                     <Grid item xs={12} >
                         <InputField type="Email" register={register} />
-                        {errors.email.message && <AlertMessage text={errors.email.message} type="error" />}
+                        {errors.email && errors.email.message && <AlertMessage text={errors.email.message} type="error" />}
                     </Grid>
-
+                    <Grid item xs={12} >
+                        <InputField type="Text" register={register} />
+                        {errors.person && <AlertMessage text="Este campo é obrigatório" type="error" />}
+                    </Grid>
                     <Grid item xs={12} >
                         <InputField type="Password" register={register} />
-                        {errors.email && <AlertMessage text="Este campo é obrigatório" type="error" />}
-                    </Grid>
-                    <Grid item xs={12} className={classes.link} >
-                        <Link href="forgot-password">Esqueceu a palavra passe?</Link>
+                        {errors.password && <AlertMessage text="Este campo é obrigatório" type="error" />}
                     </Grid>
                     <Grid item xs={12} className={classes.buttons} >
-                        <Button href="/register" className={`${classesGlobal.negativeButton} ${classes.button}`}>Registar</Button>
-                        <Button className={`${classesGlobal.positiveButton} ${classes.button}`} type="submit">Iniciar Sessão</Button>
+                        <Button href="/login" className={`${classesGlobal.negativeButton} ${classes.button}`}>Iniciar Sessão</Button>
+                        <Button className={`${classesGlobal.positiveButton} ${classes.button}`} type="submit">Registar</Button>
                     </Grid>
                 </Grid>
             </form>
@@ -77,4 +77,4 @@ const LoginForm: React.FC = () => {
     )
 }
 
-export default LoginForm;
+export default RegisterForm;

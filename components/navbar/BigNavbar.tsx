@@ -63,7 +63,7 @@ const useLoaded = () => {
     return loaded;
 };
 
-const BigNavbar = () => {
+const BigNavbar: React.FC = () => {
     const router = useRouter();
 
     const classes = useStylesPage();
