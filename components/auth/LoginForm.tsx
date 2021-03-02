@@ -54,13 +54,12 @@ const LoginForm: React.FC = () => {
                 <Grid container className={classes.root} alignContent="center" alignItems="center" justify="center">
                     <Grid item xs={12} >
                         <InputField type="Email" register={register} />
-                        {errors.email.message && <AlertMessage text={errors.email.message} type="error" />}
+                        <AlertMessage text={errors?.email?.message} type="error" grow={errors.email ? true : false} />
                     </Grid>
 
                     <Grid item xs={12} >
                         <InputField type="Password" register={register} />
-                        {errors.email && <AlertMessage text="Este campo é obrigatório" type="error" />}
-                    </Grid>
+                        <AlertMessage text={errors?.password?.message} type="error" grow={errors.password ? true : false} />                    </Grid>
                     <Grid item xs={12} className={classes.link} >
                         <Link href="forgot-password">Esqueceu a palavra passe?</Link>
                     </Grid>

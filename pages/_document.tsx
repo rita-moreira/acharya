@@ -16,6 +16,7 @@ export default class MyDocument extends Document {
             name="description"
             content="Acharya"
           />
+          <link rel="apple-touch-icon" href="/Acharya orginal.png" />
         </Head>
         <body style={{ margin: 0 }}>
           <Main />

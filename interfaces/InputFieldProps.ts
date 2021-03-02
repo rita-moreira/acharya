@@ -1,8 +1,8 @@
 
 interface FieldValidations {
     required: any,
-    minLength?: number,
-    maxLength?: number,
+    minLength?: any,
+    maxLength?: any,
     pattern?: any
 
 }
@@ -10,5 +10,5 @@ interface FieldValidations {
 
 export interface InputFieldProps{
     type: string,
-    register?: (FieldValidations: FieldValidations) => any,
+    register: (FieldValidations: FieldValidations) => any,
 }

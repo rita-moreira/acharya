@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
 
-import { Button, createStyles, FormControl, Grid, IconButton, Input, InputAdornment, InputBase, InputLabel, Link, makeStyles, OutlinedInput, Paper, TextField, Theme, Typography } from '@material-ui/core'
+import { Button, createStyles, FormControl, FormControlLabel, FormLabel, Grid, IconButton, Input, InputAdornment, InputBase, InputLabel, Link, makeStyles, OutlinedInput, Paper, Radio, RadioGroup, TextField, Theme, Typography } from '@material-ui/core'
 
 // components
 import InputField from "./InputField";
@@ -37,11 +37,25 @@ const useStylesPage = makeStyles((theme: Theme) =>
 const RegisterForm: React.FC = () => {
     const classes = useStylesPage();
     const classesGlobal = useStyles();
+    const [value, setValue] = useState('cliente');
 
     const { handleSubmit, register, errors } = useForm();
 
-    const onSubmit = (data: RegisterDataProps) => {
-        alert(JSON.stringify(data))
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setValue((event.target as HTMLInputElement).value);
+    };
+
+    const onSubmit = async (user: RegisterDataProps) => {
+        console.log(JSON.stringify(user))
+
+        // const response = await fetch("/api/auth", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify(user),
+        // });
+        // const data = await response.json();
     }
 
     return (
@@ -54,15 +68,24 @@ const RegisterForm: React.FC = () => {
                 <Grid container className={classes.root} alignContent="center" alignItems="center" justify="center">
                     <Grid item xs={12} >
                         <InputField type="Email" register={register} />
-                        {errors.email && errors.email.message && <AlertMessage text={errors.email.message} type="error" />}
+                        <AlertMessage text={errors?.email?.message} type="error" grow={errors.email ? true : false} />
                     </Grid>
                     <Grid item xs={12} >
                         <InputField type="Text" register={register} />
-                        {errors.person && <AlertMessage text="Este campo é obrigatório" type="error" />}
+                        <AlertMessage text={errors?.person?.message} type="error" grow={errors.person ? true : false} />
                     </Grid>
                     <Grid item xs={12} >
                         <InputField type="Password" register={register} />
-                        {errors.password && <AlertMessage text="Este campo é obrigatório" type="error" />}
+                        <AlertMessage text={errors?.password?.message} type="error" grow={errors.password ? true : false} />
+                    </Grid>
+                    <Grid item xs={12} >
+                        <FormControl component="fieldset" >
+                            <RadioGroup row aria-label="role" name="role" value={value} onChange={handleChange} >
+                                <FormControlLabel value="cliente" control={<Radio color="primary" />}
+                                    inputRef={register({ required: true })} label="Cliente" />
+                                <FormControlLabel value="perito" control={<Radio color="primary" />} inputRef={register({ required: true })} label="Perito" />
+                            </RadioGroup>
+                        </FormControl>
                     </Grid>
                     <Grid item xs={12} className={classes.buttons} >
                         <Button href="/login" className={`${classesGlobal.negativeButton} ${classes.button}`}>Iniciar Sessão</Button>

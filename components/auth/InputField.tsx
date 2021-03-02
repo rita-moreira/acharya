@@ -52,7 +52,6 @@ const InputField: React.FC<InputFieldProps> = ({ type, register }: InputFieldPro
     return (
         <>
             <Paper elevation={2} className={classes.paper} square >
-
                 <IconButton aria-label={type}>
                     {type === "Email" ? <MailOutlineIcon color="primary" /> : type === "Password" ? <LockIcon color="primary" /> :
                         <PersonIcon color="primary" />}
@@ -61,17 +60,40 @@ const InputField: React.FC<InputFieldProps> = ({ type, register }: InputFieldPro
                     id={type}
                     required
                     inputRef={
-                        register({
-                            required: {
-                                value: true,
-                                message: "Este campo é obrigatório"
-                            },
-                            pattern: {
-                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                                message: "O email não é válido",
-                            },
+                        type === "Email" ?
+                            register({
+                                required: {
+                                    value: true,
+                                    message: "Este campo é obrigatório"
+                                },
+                                pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                    message: "O email não é válido",
+                                },
 
-                        })
+                            }) : type === "Password" ? register({
+                                required: {
+                                    value: true,
+                                    message: "Este campo é obrigatório"
+                                },
+                                minLength: {
+                                    value: 8,
+                                    message: "A palavra-passe deve ter entre 8 e 30 caracteres e conter um número"
+                                },
+                                maxLength: {
+                                    value: 30,
+                                    message: "A palavra-passe deve ter entre 8 e 30 caracteres e conter um número"
+                                },
+                                pattern: {
+                                    value: /[0-9]/,
+                                    message: "A palavra-passe deve ter entre 8 e 30 caracteres e conter um número"
+                                },
+                            }) : register({
+                                required: {
+                                    value: true,
+                                    message: "Este campo é obrigatório"
+                                },
+                            })
                     }
                     name={type === "Text" ? "person" : type.toLowerCase()}
                     type={type === "Text" ? "person" : type != "Password" ? type.toLowerCase() : showPassword ? "text" : "password"}
@@ -84,6 +106,7 @@ const InputField: React.FC<InputFieldProps> = ({ type, register }: InputFieldPro
                                 <IconButton
                                     aria-label="toggle password visibility"
                                     onClick={handleShowPassword}
+                                    color="primary"
                                 >
                                     {showPassword ? <Visibility /> : <VisibilityOff />}
                                 </IconButton>

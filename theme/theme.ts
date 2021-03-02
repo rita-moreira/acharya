@@ -130,7 +130,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       textAlign: "center",
       width: "fit-content",
       fontFamily: "Roboto",
-      color: "#000000",
+      color: "black",
       textTransform: "none",
       boxShadow: "0px 3px 8px grey",
       "&:hover": {
