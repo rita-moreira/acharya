@@ -106,6 +106,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       textAlign: "center",
       width: "fit-content",
       fontFamily: "Roboto",
+      fontWeight: "bold",
       color: "#000000",
       textTransform: "none",
 
@@ -130,9 +131,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       textAlign: "center",
       width: "fit-content",
       fontFamily: "Roboto",
+      fontWeight: "bold",
       color: "black",
       textTransform: "none",
-      boxShadow: "0px 3px 8px grey",
+      boxShadow: "0px 0px 6px #707070",
       "&:hover": {
         backgroundColor: primaryColor,
         color: "#FFFFFF",
@@ -146,9 +148,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       textAlign: "center",
       width: "fit-content",
       fontFamily: "Roboto",
+      fontWeight: "bold",
       color: "black",
       textTransform: "none",
-      boxShadow: "0px 3px 8px grey",
+      boxShadow: "0px 0px 6px #707070",
       "&:hover": {
         backgroundColor: "#EFEFEF",
         color: "black",

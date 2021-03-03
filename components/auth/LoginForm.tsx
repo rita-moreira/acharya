@@ -12,6 +12,11 @@ import { useStyles } from '../../theme/theme';
 // interface
 import { LoginDataProps } from "../../interfaces/index"
 
+// actions
+import { setCookie } from "../../actions/cookies"
+
+import { useRouter } from 'next/router';
+
 const useStylesPage = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -39,10 +44,22 @@ const LoginForm: React.FC = () => {
     const classes = useStylesPage();
     const classesGlobal = useStyles();
 
+    const router = useRouter();
+
     const { handleSubmit, register, errors } = useForm();
 
-    const onSubmit = (data: LoginDataProps) => {
-        alert(JSON.stringify(data))
+    const onSubmit = async (user: LoginDataProps) => {
+        const response = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user),
+        });
+        const data = await response.json();
+        setCookie("token", data.refresh_token);
+        router.push("/login");
+        console.log(data)
     }
 
     return (

@@ -30,6 +30,9 @@ const useStylesPage = makeStyles((theme: Theme) =>
         },
         button: {
             margin: "5px"
+        },
+        radioLabel: {
+            color: theme.palette.primary.main
         }
     }),
 );
@@ -46,17 +49,19 @@ const RegisterForm: React.FC = () => {
     };
 
     const onSubmit = async (user: RegisterDataProps) => {
-        console.log(JSON.stringify(user))
+        console.log(user)
+        const response = await fetch("/api/auth/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user),
+        });
+        const data = await response.json();
 
-        // const response = await fetch("/api/auth", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(user),
-        // });
-        // const data = await response.json();
+        console.log(data)
     }
+
 
     return (
 
@@ -79,11 +84,12 @@ const RegisterForm: React.FC = () => {
                         <AlertMessage text={errors?.password?.message} type="error" grow={errors.password ? true : false} />
                     </Grid>
                     <Grid item xs={12} >
-                        <FormControl component="fieldset" >
+                        <FormControl component="fieldset">
                             <RadioGroup row aria-label="role" name="role" value={value} onChange={handleChange} >
-                                <FormControlLabel value="cliente" control={<Radio color="primary" />}
+                                <FormControlLabel value="cliente" control={<Radio color="primary" className={classes.radioLabel} />} className={classes.radioLabel}
                                     inputRef={register({ required: true })} label="Cliente" />
-                                <FormControlLabel value="perito" control={<Radio color="primary" />} inputRef={register({ required: true })} label="Perito" />
+                                <FormControlLabel value="perito" control={<Radio color="primary" className={classes.radioLabel} />} className={classes.radioLabel}
+                                    inputRef={register({ required: true })} label="Perito" />
                             </RadioGroup>
                         </FormControl>
                     </Grid>

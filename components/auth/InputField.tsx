@@ -34,7 +34,8 @@ const useStylesPage = makeStyles((theme: Theme) =>
             "&.Mui-focused": {
                 color: secondaryColor
             },
-            width: "80%"
+            width: "80%",
+            fontFamily: "Roboto",
         },
     }),
 );
@@ -93,6 +94,10 @@ const InputField: React.FC<InputFieldProps> = ({ type, register }: InputFieldPro
                                     value: true,
                                     message: "Este campo é obrigatório"
                                 },
+                                pattern: {
+                                    value: /^[a-zA-Z]+\s[a-zA-Z]+$/,
+                                    message: "Inválido, por favor insire o seu nome [espaço] apelido"
+                                }
                             })
                     }
                     name={type === "Text" ? "person" : type.toLowerCase()}
