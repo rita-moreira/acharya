@@ -10,6 +10,9 @@ import InputField from "./InputField";
 import { useStyles } from '../../theme/theme';
 import AlertMessage from './AlertMessage';
 
+import { useRouter } from 'next/router';
+
+
 const useStylesPage = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -33,26 +36,28 @@ const useStylesPage = makeStyles((theme: Theme) =>
     }),
 );
 
-const ForgotPassword: React.FC = () => {
+const ResetPasswordForm: React.FC = () => {
     const classes = useStylesPage();
     const classesGlobal = useStyles();
     const { handleSubmit, register, errors } = useForm();
+    const router = useRouter();
+
     interface propsss {
         email: string
     }
-    const onSubmit = async (email: propsss) => {
-        const response = await fetch("/api/auth/forgot-password", {
+    const onSubmit = async (password: any) => {
+        const response = await fetch("/api/auth/reset-password", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(email),
+            body: JSON.stringify({ password: password, token: router.query.token }),
         });
         const data = await response.json();
         if (data.error) {
             console.log(data.error)
         } else {
-            console.log(data)
+            router.push(`/login}`);
         }
 
 
@@ -67,12 +72,11 @@ const ForgotPassword: React.FC = () => {
             <form autoComplete="off" noValidate onSubmit={handleSubmit(onSubmit)}>
                 <Grid container className={classes.root} alignContent="center" alignItems="center" justify="center">
                     <Grid item xs={12} >
-                        <InputField type="Email" register={register} />
-                        <AlertMessage text={errors?.email?.message} type="error" grow={errors.email ? true : false} />
+                        <InputField type="Password" register={register} />
+                        <AlertMessage text={errors?.password?.message} type="error" grow={errors.password ? true : false} />
                     </Grid>
                     <Grid item xs={12} className={classes.buttons} >
-                        <Button href="/login" className={`${classesGlobal.negativeButton} ${classes.button}`}>Iniciar Sessão</Button>
-                        <Button className={`${classesGlobal.positiveButton} ${classes.button}`} type="submit">Recuperar</Button>
+                        <Button className={`${classesGlobal.positiveButton} ${classes.button}`} type="submit">Mudar palavra-passe</Button>
                     </Grid>
                 </Grid>
             </form>
@@ -83,4 +87,4 @@ const ForgotPassword: React.FC = () => {
     )
 }
 
-export default ForgotPassword;
+export default ResetPasswordForm;

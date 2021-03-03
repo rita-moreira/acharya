@@ -45,7 +45,8 @@ const register = async (req: NextApiRequest,res: NextApiResponse) => {
 
 
         const passwordHash = await bcrypt.hash(password, 12);
-        const slug = slugify(person);
+        const personLower = person.toLowerCase();
+        const slug = slugify(personLower);
         const verifyEmail = crypto.randomBytes(64).toString("hex");
         const newClient = new User({email, person, password: passwordHash, slug, role, verifyEmail: verifyEmail})
       
@@ -60,12 +61,12 @@ const register = async (req: NextApiRequest,res: NextApiResponse) => {
       
 
          // send mail with defined transport object
-  let mailOptions = {
-    from: process.env.EMAIL, // sender address
-    to: email, // list of receivers
-    subject: "Welcome to Acharya", // Subject line
-    // text: "Hello world?", // plain text body
-    html: `<h1>Bem vind@ ao Acharya</h1>
+        let mailOptions = {
+          from: process.env.EMAIL, // sender address
+          to: email, // list of receivers
+          subject: "Welcome to Acharya", // Subject line
+          // text: "Hello world?", // plain text body
+          html: `<h1>Bem vind@ ao Acharya</h1>
             <h3>Obrigada por ter feito o seu registo ${person}<h3>
             <a href="http://${req.headers.host}/verify-email?token=${verifyEmail}">Verificar email</a>
     `, // html body

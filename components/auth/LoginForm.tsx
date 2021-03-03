@@ -57,8 +57,13 @@ const LoginForm: React.FC = () => {
             body: JSON.stringify(user),
         });
         const data = await response.json();
-        setCookie("token", data.refresh_token);
-        router.push("/login");
+
+        if (!data.error) {
+            console.log(data.user.slug)
+            setCookie("token", data.refresh_token);
+            setCookie("user", data.user);
+            router.push(`/user/${data.user.slug}`);
+        }
         console.log(data)
     }
 

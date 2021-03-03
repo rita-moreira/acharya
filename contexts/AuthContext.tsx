@@ -1,12 +1,13 @@
 import React, { createContext } from "react";
 
+import { AuthProps } from "../interfaces/index"
 interface AuthContextType {
-  auth: boolean;
-  setAuth: React.Dispatch<React.SetStateAction<boolean>>;
+  auth: AuthProps | null;
+  setAuth: React.Dispatch<React.SetStateAction<AuthProps>>;
 }
 const AuthContext = createContext<AuthContextType>({
-  auth: false,
-  setAuth: (auth: boolean) => auth,
+  auth: null,
+  setAuth: (auth: AuthProps | null) => auth,
 });
 
 export default AuthContext;

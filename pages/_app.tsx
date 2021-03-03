@@ -15,12 +15,14 @@ import AuthContext from '../contexts/AuthContext';
 //actions
 import { getCookies } from "../actions/cookies";
 
-
+//interface
+import { AuthProps } from "../interfaces/index"
 const App = ({ Component, pageProps }: AppProps) => {
 
   const themeCookie: string = getCookies("theme");
   const [themeMode, setThemeMode] = useState<string>(themeCookie);
-  const [auth, setAuth] = useState<boolean>(false);
+  const authCookie: AuthProps | null = getCookies('user');
+  const [auth, setAuth] = useState<AuthProps | null>(authCookie);
 
   return (
     <div>

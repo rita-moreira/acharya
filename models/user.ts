@@ -10,7 +10,8 @@ interface IUser extends Document {
   verifyEmail: string,
   nif: Number,
   address: String,
-  mobile: Number
+  mobile: Number,
+  resetPassword: String,
 }
 
 // error: Cannot overwrite `Client` model once compiled.
@@ -65,6 +66,9 @@ const userSchema = new mongoose.Schema(
     mobile: {
       type: Number
     }, 
+    resetPassword: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
